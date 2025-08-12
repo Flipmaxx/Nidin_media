@@ -1,157 +1,141 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import axios from 'axios'
-import { useRouter } from 'next/navigation'
-import { Mail, KeyRound, Eye } from 'lucide-react'
-import Link from 'next/link'
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import axios from "axios";
+import { FaGoogle } from "react-icons/fa";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 
-export default function Login() {
-  const router = useRouter()
-  const [form, setForm] = useState({ Email: '', Password: '' })
-  const [error, setError] = useState('')
-  const [loading, setLoading] = useState(false)
-  const [showPassword, setShowPassword] = useState(false)
+export default function LoginPage() {
+  const router = useRouter();
+  const [formData, setFormData] = useState({ Email: "", Password: "" });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value })
-  }
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    setLoading(true)
-    setError('')
+    e.preventDefault();
+    setError("");
+    setLoading(true);
+
     try {
-      const res = await axios.post('/api/Login', form)
+      const res = await axios.post("/api/login", formData);
       if (res.status === 200) {
-        router.push('/Dashboard')
+        router.push("/dashboard");
       }
     } catch (err) {
-      const msg =
-        err?.response?.data?.message || 'Login failed. Please try again.'
-      setError(msg)
+      setError(err.response?.data?.message || "Login failed");
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   return (
-    <div className="min-h-screen grid grid-cols-1 xl:grid-cols-2">
-      
-      <div className="bg-[#083c44] text-white flex flex-col items-center justify-center p-10">
-        <h1 className="text-3xl font-bold mb-6 font-poppins">Dr.Smile</h1>
+    <div className="min-h-screen grid grid-cols-1 md:grid-cols-2">
+      <div className="relative">
         <img
-          src="/Images/loginp1.png"
-          alt="Dental"
-          className="w-full max-w-sm rounded-md mb-6"
+          src="https://t4.ftcdn.net/jpg/02/22/07/49/360_F_222074985_CwcuLMkQ0NBU2Qv1lqHD5XpHYtkY8mAB.jpg"
+          alt="Background"
+          className="w-full h-96 md:h-full object-cover p-2 rounded-3xl"
         />
-        <h2 className="text-xl font-semibold text-center mb-2">
-          Welcome back to Dr.smile!
-        </h2>
-        <p className="text-sm text-center max-w-md font-light Poppins">
-          Dr. Smile Dental Clinic Is Where Your Smile Gets The Attention It
-          Truly Deserves. We Deliver Modern Dental Care With A Gentle,
-          Personalized Approach For All Ages.
-        </p>
-      </div>
-
-      <div className="bg-white flex flex-col justify-center px-8 py-12 lg:px-24">
-        <div className="max-w-md w-full mx-auto">
-          <h2 className="text-2xl xl:text-4xl font-bold mb-2 text-gray-800 text-center font-poppins">
-            log In
+        <div className="absolute bottom-4 left-4 md:bottom-10 md:left-10 text-white max-w-sm drop-shadow-lg">
+          <h2 className="text-xl md:text-4xl font-bold">
+            One Tap to Everything You Need
           </h2>
-          <p className="text-sm text-gray-600 mb-6 text-center font-reddit">
-            Please Enter Your Details To Sign In Your Account
+          <p className="text-xs md:text-sm mt-2">
+            Experience seamless access to everything you desire, curated with
+            care.
           </p>
-
-          {error && (
-            <p className="text-red-600 text-sm mb-4 text-center">{error}</p>
-          )}
-
-          <form onSubmit={handleSubmit} className="space-y-5">
-            <div>
-              <label className="block text-sm font-medium mb-1 text-gray-700">
-                Email Address
-              </label>
-              <div className="relative">
-                <span className="absolute left-3 top-2.5 text-gray-500">
-                  <Mail size={18} />
-                </span>
-                <input
-                  type="email"
-                  name="Email"
-                  value={form.Email}
-                  onChange={handleChange}
-                  placeholder="Enter your email"
-                  required
-                  className="w-full border border-gray-300 rounded-md pl-10 pr-4 py-2 focus:ring-2 focus:ring-black outline-none"
-                />
-              </div>
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium mb-1 text-gray-700">
-                Password
-              </label>
-              <div className="relative">
-                <span className="absolute left-3 top-2.5 text-gray-500">
-                  <KeyRound size={18} />
-                </span>
-                <input
-                  type={showPassword ? 'text' : 'password'}
-                  name="Password"
-                  value={form.Password}
-                  onChange={handleChange}
-                  placeholder="Enter your password..."
-                  required
-                  className="w-full border border-gray-300 rounded-md pl-10 pr-10 py-2 focus:ring-2 focus:ring-[#083c44] outline-none"
-                />
-                <span
-                  className="absolute right-3 top-2.5 text-gray-500 cursor-pointer"
-                  onClick={() => setShowPassword(!showPassword)}
-                >
-                  <Eye size={18} />
-                </span>
-              </div>
-            </div>
-
-            <div className="flex items-center justify-between text-sm">
-           
-            </div>
-
-            <button
-              type="submit"
-              disabled={loading}
-              className={`w-full flex justify-center items-center gap-2 bg-[#083c44] hover:bg-[#0a505a] text-white font-semibold py-2 px-4 rounded-md ${
-                loading ? 'opacity-50 cursor-not-allowed' : ''
-              }`}
-            >
-              Log In →
-            </button>
-          </form>
-
-    <Link href="/Forgotpassword">
-  <div className="text-center mt-6">
-    <span className="text-sm text-[#083c44] hover:underline font-medium cursor-pointer">
-      Forgot Your Password?
-    </span>
-  </div>
-</Link>
-
-
-          <div className="mt-10 text-center text-sm xl:text-sm text-gray-500">
-            <p>© 2025 Dr.smile</p>
-            <div className="flex justify-center gap-4 mt-2">
-              <a href="#" className="hover:underline">
-                Privacy Policy
-              </a>
-              <a href="#" className="hover:underline">
-                Terms
-              </a>
-            </div>
-          </div>
         </div>
       </div>
+      <div className="flex flex-col justify-center px-6 sm:px-10 md:px-16 lg:px-24 py-10">
+        <div className="mb-6 flex justify-center">
+          <img src="/images/logo.png" alt="Logo" className="h-10" />
+        </div>
+
+        <h1 className="text-3xl font-bold text-center mb-2">Welcome Back</h1>
+        <p className="text-gray-500 text-center mb-6">
+          Enter your email and password to access your account.
+        </p>
+
+        <form onSubmit={handleSubmit} className="space-y-5">
+          <div>
+            <label className="block text-sm font-medium text-gray-700">
+              Email *
+            </label>
+            <input
+              type="email"
+              name="Email"
+              value={formData.Email}
+              onChange={handleChange}
+              placeholder="Enter your email address"
+              required
+              className="mt-1 w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-pink-200"
+            />
+          </div>
+          <div className="relative">
+            <label className="block text-sm font-medium text-gray-700">
+              Password *
+            </label>
+            <input
+              type={showPassword ? "text" : "password"}
+              name="Password"
+              value={formData.Password}
+              onChange={handleChange}
+              placeholder="Enter password"
+              required
+              className="mt-1 w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-pink-200 pr-10"
+            />
+            <span
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-3 top-9 cursor-pointer text-gray-500"
+            >
+              {showPassword ? <FiEyeOff /> : <FiEye />}
+            </span>
+          </div>
+          {error && <p className="text-red-500 text-sm">{error}</p>}
+
+          <div className="flex items-center justify-between text-sm">
+            <label className="flex items-center">
+              <input type="checkbox" className="mr-2" /> Remember me
+            </label>
+            <a
+              href="/forgot-password"
+              className="text-green-700 hover:underline"
+            >
+              Forgot Password
+            </a>
+          </div>
+
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full bg-green-700 text-white py-2 rounded-lg hover:bg-gray-900 transition"
+          >
+            {loading ? "Logging in..." : "Sign In"}
+          </button>
+          <button
+            type="button"
+            className="w-full border py-2 rounded-lg flex items-center justify-center gap-2 hover:bg-gray-50 transition"
+          >
+            <FaGoogle className="text-green-500" />
+            Sign In with Google
+          </button>
+        </form>
+        <p className="mt-6 text-center text-sm text-gray-500">
+          Don’t have an account?{" "}
+          <a
+            href="/register"
+            className="text-green-700 font-medium hover:underline"
+          >
+            Sign up
+          </a>
+        </p>
+      </div>
     </div>
-  )
+  );
 }

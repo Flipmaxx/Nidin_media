@@ -9,11 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@heroicons/react": "^2.2.0",
     "axios": "^1.11.0",
     "bcrypt": "^6.0.0",
     "clsx": "^2.1.1",
     "cookie": "^1.0.2",
     "crypto": "^1.0.1",
+    "framer-motion": "^12.23.12",
     "jsonwebtoken": "^9.0.2",
     "lucide-react": "^0.534.0",
     "mongoose": "^8.16.5",
