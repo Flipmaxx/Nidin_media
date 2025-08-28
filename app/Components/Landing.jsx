@@ -5,22 +5,16 @@ import { motion } from 'framer-motion';
 export default function Landing() {
   return (
     <section className="relative min-h-screen bg-black text-white overflow-hidden">
-
-      {/* Animated radial glow */}
       <motion.div
         className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_#00ff84_0%,_transparent_40%)] opacity-40"
         animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0.5, 0.3] }}
         transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
       ></motion.div>
-
-      {/* Grid lines with slight movement */}
       <motion.div
         className="absolute inset-0 grid-bg"
         animate={{ backgroundPosition: ["0px 0px", "20px 20px", "0px 0px"] }}
         transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
       ></motion.div>
-
-      {/* Floating animated shapes */}
       <motion.div
         className="absolute top-24 left-24 w-16 h-16 bg-green-500/10"
         animate={{ y: [0, -20, 0], rotate: [0, 10, -10, 0] }}
@@ -38,8 +32,6 @@ export default function Landing() {
         animate={{ scale: [1, 1.3, 1], rotate: [0, 360] }}
         transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
       ></motion.div>
-
-      {/* EXTRA animated squares */}
       <motion.div
         className="absolute bottom-20 left-10 w-10 h-10 bg-green-500/10 rounded"
         animate={{ y: [0, -15, 0], rotate: [0, -15, 15, 0] }}

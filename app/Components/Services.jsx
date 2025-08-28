@@ -1,137 +1,91 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
-import {
-  FaYoutube,
-  FaEye,
-  FaUserPlus,
-  FaClock,
-  FaBrush,
-  FaLaptopCode,
-  FaFilm,
-} from "react-icons/fa";
+import { FaMicrochip, FaComments, FaChartBar, FaProjectDiagram } from "react-icons/fa";
 
 const services = [
-  {
-    title: "Brand Identity & Logo Design",
-    desc: "Create cohesive, memorable brand identities that make you stand out.",
-    icon: <FaBrush size={40} />,
-    img: "/services/brand.jpg",
-  },
-  {
-    title: "Web UI/UX Design",
-    desc: "Design intuitive, conversion-driven websites your customers will love.",
-    icon: <FaLaptopCode size={40} />,
-    img: "/services/uiux.jpg",
-  },
-  {
-    title: "Video Editing & Logo Animation",
-    desc: "Bring your brand to life with engaging visuals and animations.",
-    icon: <FaFilm size={40} />,
-    img: "/services/video.jpg",
-  },
-  {
-    title: "YouTube Video Promotion Plan",
-    desc: "Boost your video reach with strategic YouTube promotions.",
-    icon: <FaYoutube size={40} />,
-    img: "/services/youtube-promo.jpg",
-  },
-  {
-    title: "YouTube Channel Subscription Plan",
-    desc: "Grow your channel subscribers organically with tailored campaigns.",
-    icon: <FaUserPlus size={40} />,
-    img: "/services/subscription.jpg",
-  },
-  {
-    title: "YouTube Views & Revenue Plans",
-    desc: "Increase your video views and generate more revenue effectively.",
-    icon: <FaEye size={40} />,
-    img: "/services/views.jpg",
-  },
-  {
-    title: "YouTube Watch Hours Plan",
-    desc: "Achieve monetization goals faster with targeted watch hour growth.",
-    icon: <FaClock size={40} />,
-    img: "/services/watchhours.jpg",
-  },
-];
-
-// Different animation variants for cards
-const cardAnimations = [
-  { initial: { opacity: 0, y: 50 }, animate: { opacity: 1, y: 0 } },
-  { initial: { opacity: 0, x: -50 }, animate: { opacity: 1, x: 0 } },
-  { initial: { opacity: 0, scale: 0.8 }, animate: { opacity: 1, scale: 1 } },
-  { initial: { opacity: 0, rotate: -10 }, animate: { opacity: 1, rotate: 0 } },
-  { initial: { opacity: 0, y: -50 }, animate: { opacity: 1, y: 0 } },
-  { initial: { opacity: 0, x: 50 }, animate: { opacity: 1, x: 0 } },
-  { initial: { opacity: 0, scale: 0.5 }, animate: { opacity: 1, scale: 1 } },
+  { title: "Automation Machine Learning", icon: <FaMicrochip size={28} /> },
+  { title: "AI-Powered Chatbots", icon: <FaComments size={28} /> },
+  { title: "Data Analytics Deep Insights", icon: <FaChartBar size={28} /> },
+  { title: "AI Strategy Pro Consulting", icon: <FaProjectDiagram size={28} /> },
 ];
 
 export default function ServicesPage() {
   return (
-    <section className="bg-black text-white min-h-screen py-20 relative overflow-hidden flex items-center">
-      <div className="container mx-auto px-6">
+    <section className="relative overflow-hidden min-h-screen flex items-center justify-center bg-black text-white">
+      {/* Animated Background Blobs */}
+      <motion.div
+        className="absolute top-10 left-[-5rem] w-[20rem] md:w-[28rem] h-[20rem] md:h-[28rem] bg-green-500 rounded-full mix-blend-multiply filter blur-3xl opacity-30"
+        animate={{ x: [0, 100, -80, 0], y: [0, 60, -60, 0], scale: [1, 1.2, 1] }}
+        transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.div
+        className="absolute bottom-0 right-0 w-[18rem] md:w-[25rem] h-[18rem] md:h-[25rem] bg-green-700 rounded-full mix-blend-multiply filter blur-3xl opacity-20"
+        animate={{ x: [0, -100, 80, 0], y: [0, -60, 60, 0], scale: [1, 1.3, 1] }}
+        transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.div
+        className="absolute top-1/2 left-1/2 w-[15rem] md:w-[20rem] h-[15rem] md:h-[20rem] bg-green-400 rounded-full mix-blend-multiply filter blur-2xl opacity-25"
+        animate={{ x: [0, 60, -60, 0], y: [0, 40, -40, 0], scale: [1, 1.15, 1] }}
+        transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
+      />
+
+      {/* Content */}
+      <div className="relative z-10 container mx-auto px-6 py-20">
+        {/* Heading */}
         <motion.h2
-          className="text-center text-3xl font-bold mb-12"
+          className="text-center text-xl md:text-2xl lg:text-3xl font-medium mb-14 max-w-3xl mx-auto"
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          Services we provide
+          We are pioneers in{" "}
+          <span className="text-green-500 font-semibold">AI consulting</span>, dedicated to helping
+          businesses harness the power of artificial intelligence to drive innovation, efficiency,
+          and growth.
         </motion.h2>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {services.map((service, index) => {
-            const anim = cardAnimations[index % cardAnimations.length];
-            return (
-              <motion.div
-                key={index}
-                className="relative rounded-xl shadow-lg overflow-hidden group cursor-pointer"
-                initial={anim.initial}
-                animate={anim.animate}
-                transition={{ duration: 0.6, delay: index * 0.15 }}
-                whileHover={{ scale: 1.05 }}
+        {/* Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {services.map((service, index) => (
+            <motion.div
+              key={index}
+              className={`
+                group relative rounded-2xl p-6 flex flex-col justify-between h-80 md:h-96
+                shadow-md border border-gray-700 bg-gradient-to-b from-green-950 to-black
+                transition-all duration-500 hover:shadow-green-500/40
+              `}
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: index * 0.2 }}
+              whileHover={{ scale: 1.05 }}
+            >
+              {/* Icon */}
+              <div
+                className="w-12 h-12 flex items-center justify-center rounded-lg text-black
+                           bg-green-400 group-hover:bg-green-500 transition"
               >
-                {/* Background Image */}
-                <div className="absolute inset-0">
-                  <Image
-                    src={service.img}
-                    alt={service.title}
-                    fill
-                    className="object-cover object-center"
-                  />
-                  <div className="absolute inset-0 bg-black/60 group-hover:bg-black/40 transition-all duration-500"></div>
-                </div>
+                {service.icon}
+              </div>
 
-                {/* Moving gradient overlay */}
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-green-500/20 to-transparent"
-                  animate={{ x: ["-100%", "100%"] }}
-                  transition={{
-                    repeat: Infinity,
-                    duration: 3,
-                    ease: "linear",
-                  }}
-                />
+              {/* Title */}
+              <h3 className="mt-6 text-lg font-semibold text-white transition group-hover:text-green-400">
+                {service.title}
+              </h3>
 
-                {/* Content */}
-                <div className="relative p-6 z-10">
-                  <motion.div
-                    className="text-green-400 mb-4"
-                    whileHover={{ scale: 1.2, rotate: 5 }}
-                    transition={{ type: "spring", stiffness: 200 }}
-                  >
-                    {service.icon}
-                  </motion.div>
-                  <h3 className="text-lg font-semibold mb-2">
-                    {service.title}
-                  </h3>
-                  <p className="text-gray-300">{service.desc}</p>
-                </div>
-              </motion.div>
-            );
-          })}
+              {/* Button */}
+              <button
+                className={`
+                  mt-6 py-2 px-4 rounded-md font-medium text-sm transition-all duration-500
+                  bg-green-600 text-white hover:bg-black border border-green-500
+                  group-hover:bg-gradient-to-r group-hover:from-green-600 
+                  group-hover:to-black group-hover:shadow-lg
+                `}
+              >
+                Talk With Us
+              </button>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>
